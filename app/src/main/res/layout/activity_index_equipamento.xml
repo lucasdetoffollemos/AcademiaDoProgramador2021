@@ -4,17 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.MainActivity"
+    tools:context=".Activities.IndexEquipamento"
     android:padding="10dp">
-
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textSize="40sp"
-        android:text="NDD APP"
+        android:textSize="30sp"
+        android:text="Seja bem vindo!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -23,28 +22,15 @@
         app:layout_constraintVertical_bias="0.242" />
 
     <Button
-        android:id="@+id/bt_vaiParaEquipamentos"
+        android:id="@+id/bt_registroEquipamentos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Equipamentos"
+        android:layout_marginBottom="28dp"
+        android:text="Registrar equipamentos"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.657" />
-
-    <Button
-        android:id="@+id/bt_vaiParaManutencao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Manutenção"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.759" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
