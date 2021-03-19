@@ -46,7 +46,6 @@ public class EquipamentoDao implements EquipamentoSchema {
 //            e.setFabricante(cursor.getString(5));
 //            cursor.close();
 //        }
-//
 //        return e;
 //
 //    }
@@ -87,8 +86,58 @@ public class EquipamentoDao implements EquipamentoSchema {
 
     }
 
+    public void updateEquipamento(int id, String nome, String preco, String numeroSerie, String data, String fabricante){
+        ContentValues values = new ContentValues();
+        values.put(COLUNA_NOME,nome); //These Fields should be your String values of actual column names
+        values.put(COLUNA_PRECO, preco);
+        values.put(COLUNA_NUMERO_SERIE, numeroSerie);
+        values.put(COLUNA_DATA_FABRICACAO, data);
+        values.put(COLUNA_FABRICANTE, fabricante);
+
+
+        this.bancoDeDados.update(TABELA_EQUIPAMENTO, values, COLUNA_ID + " = " + id, null);
+    }
+
+    public Equipamento getEquipamento(int id) {
+
+        String sql_query = "SELECT * FROM " + TABELA_EQUIPAMENTO + " WHERE " + COLUNA_ID + "=" + id;
+        Cursor cursor = this.bancoDeDados.rawQuery(sql_query, null);
+
+        Equipamento e = new Equipamento();
+        if (cursor != null && cursor.moveToFirst()) {
+            e.setId(cursor.getInt(0));
+            e.setNome(cursor.getString(1));
+            e.setPreco(cursor.getString(2));
+            e.setNumeroSerie(cursor.getString(3));
+            e.setData_fabricacao(cursor.getString(4));
+            e.setFabricante(cursor.getString(5));
+            cursor.close();
+        }
+
+        return e;
+
+    }
+
     public void deleteEquipamentoById(int id){
         this.bancoDeDados.delete(TABELA_EQUIPAMENTO, COLUNA_ID + "=?", new String[]{Integer.toString(id)});
+    }
+
+    public boolean checkEquipamentoExists(String nome, String numeroSerie, String fabricante){
+        boolean check = false;
+
+        String sql_query = "SELECT * FROM " + TABELA_EQUIPAMENTO+ " WHERE " + COLUNA_NOME + "=? and "+ COLUNA_NUMERO_SERIE + "=? and " + COLUNA_FABRICANTE + "=?";
+        Cursor cursor = this.bancoDeDados.rawQuery(sql_query, new String[]{nome,numeroSerie, fabricante});
+
+        if(cursor.getCount()>0){
+            cursor.close();
+            check = true;
+        }
+        else {
+            check = false;
+        }
+
+        return check;
+
     }
 }
 

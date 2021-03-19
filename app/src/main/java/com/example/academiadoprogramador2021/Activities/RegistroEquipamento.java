@@ -27,10 +27,8 @@ public class RegistroEquipamento extends AppCompatActivity {
     private EditText et_nome, et_preco,  et_numeroSerie, et_fabricante;
     private TextView tv_date;
     private String nome, preco, numeroSerie, dataFabricacao, fabricante, dataAtual;
-
-
-
     private Button bt_registrar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,32 +110,32 @@ public class RegistroEquipamento extends AppCompatActivity {
 
 
         if ((nome.length() >= 6) && (preco.length() > 0) && (numeroSerie.length() > 0) && (dataFabricacao != null) && (fabricante.length() > 0)) {
+            //se a data inserida for maior que atual, nao deixa cadastrar
             if (comparaData == true){
-                //Toast.makeText(this, "Nome do equipamento: " + nome, Toast.LENGTH_SHORT).show();
-                //Toast.makeText(this, "Preço de aquisição: " + preco, Toast.LENGTH_SHORT).show();
-                //Toast.makeText(this, "Número de série:  " + numeroSerie, Toast.LENGTH_SHORT).show();
-                //Toast.makeText(this, "Data de fabricação: " + dataFabricacao, Toast.LENGTH_SHORT).show();
-                //Toast.makeText(this, "Fabricante: " + fabricante, Toast.LENGTH_SHORT).show();
-                //some logic
+
+                //se o nome o numero de serie e o fabricante for igual a algum equipamento registrado no banco, nao deixar equipamento se cadastrar.
+                if(BancodeDados.equipamentoDao.checkEquipamentoExists(nome, numeroSerie, fabricante)){
+                    Toast.makeText(this, "Equipamento já existe ", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Equipamento e = new Equipamento(nome, preco, numeroSerie, dataFabricacao, fabricante);
+                    BancodeDados.equipamentoDao.inserirEquipamento(e);
+
+                    Toast.makeText(this, "Equipamento registrado com sucesso! ", Toast.LENGTH_SHORT).show();
+
+                    //O código abaixo aguarda 2 seg e redireciona o usuário para o IndexFragment.
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtra("nome_equipamento", nome);
+                            setResult(RESULT_OK, returnIntent);
+                            finish();
+                        }
+                    }, 1000);
+                }
 
 
-                Equipamento e = new Equipamento(nome, preco, numeroSerie, dataFabricacao, fabricante);
-                BancodeDados.equipamentoDao.inserirEquipamento(e);
-
-                Toast.makeText(this, "Equipamento registrado com sucesso! ", Toast.LENGTH_SHORT).show();
-//                BancodeDados.equipamentoDao.deleteAllEquipamentos();
-//                Toast.makeText(this, "Equipamentos deletado com sucesso! ", Toast.LENGTH_SHORT).show();
-
-                //O código abaixo aguarda 2 seg e redireciona o usuário para o IndexFragment.
-                new Timer().schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        Intent returnIntent = new Intent();
-                        returnIntent.putExtra("nome_equipamento", nome);
-                        setResult(RESULT_OK, returnIntent);
-                        finish();
-                    }
-                }, 1000);
 
 
 
@@ -188,7 +186,10 @@ public class RegistroEquipamento extends AppCompatActivity {
 
 
 
+    public void voltarIndex(View v){
+        finish();
 
+    }
 
 
 

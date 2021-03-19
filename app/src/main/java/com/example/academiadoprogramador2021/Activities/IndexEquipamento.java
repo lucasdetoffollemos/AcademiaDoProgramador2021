@@ -25,7 +25,7 @@ public class IndexEquipamento extends AppCompatActivity {
     private ListView lv_equipamentos;
     private ListViewEquipamentoAdapter listViewEquipamentoAdapter;
     private int equipamentoId;
-    private TextView tv_bemVindo, tv_zeroEquipamento;
+    private TextView tv_bemVindo;
     String nomeEquipamento;
 
 
@@ -42,16 +42,11 @@ public class IndexEquipamento extends AppCompatActivity {
         bt_RegistroEquipamentos = findViewById(R.id.bt_registroEquipamentos);
         lv_equipamentos = findViewById(R.id.lv_equipamentos);
         tv_bemVindo = findViewById(R.id.tv_bemVindo);
-        tv_zeroEquipamento = findViewById(R.id.tv_zeroEquipamentos);
 
         manipulandoListaEquipamentos();
     }
 
     private void manipulandoListaEquipamentos() {
-
-
-        tv_zeroEquipamento.setVisibility(View.INVISIBLE);
-
         //Nome do equipamento irá vir pelo resultado da activity REgistro equipamento
          equipamentoId = BancodeDados.equipamentoDao.geteEquipamentoId(nomeEquipamento);
         //Recupera as propriedades do usuário baseado no seu ID.
@@ -60,12 +55,8 @@ public class IndexEquipamento extends AppCompatActivity {
         //Se existirem propriedades, esconde o textview "Bem vindo Usuário"
         if(listaEquipamento.size() > 0){
             tv_bemVindo.setVisibility(View.INVISIBLE);
-            tv_zeroEquipamento.setVisibility(View.INVISIBLE);
         }
 
-        else {
-            tv_bemVindo.setVisibility(View.VISIBLE);
-        }
 
         listViewEquipamentoAdapter = new ListViewEquipamentoAdapter(this, listaEquipamento);
         lv_equipamentos.setAdapter(listViewEquipamentoAdapter);
@@ -102,30 +93,29 @@ public class IndexEquipamento extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
+//    public void atualizaEqupamento(){
 //
-//        if (requestCode == resultCode) {
-//            if (resultCode == RESULT_OK) {
-//                atualizaListView();
-//                nomeEquipamento = data.getStringExtra("result");
-//                Toast.makeText(this, "Toaqui", Toast.LENGTH_SHORT).show();
-//                atualizaListView();
-//            }
-//            if (resultCode == RESULT_CANCELED) {
-//                //Write your code if there's no result
-//            }
-//        }
 //    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //Quando os dados vem do registrar dados
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             nomeEquipamento = data.getStringExtra("nome_equipamento");
             atualizaListView();
         }
+
+        //quando os dados vem do editar dados
+        if (resultCode == RESULT_OK && requestCode == 2) {
+            atualizaListView();
+
+        }
+    }
+
+    public void voltarMain(View v){
+        finish();
     }
 
 

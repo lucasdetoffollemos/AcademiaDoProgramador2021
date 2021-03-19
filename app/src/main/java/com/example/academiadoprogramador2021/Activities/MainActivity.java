@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.academiadoprogramador2021.Classes.BancodeDados;
 import com.example.academiadoprogramador2021.R;
@@ -40,6 +41,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 vaiParaEquipamentos();
+            }
+        });
+
+        bt_manutencao.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Infelizmente o tempo acabou antes de eu implementar os chamados :(", Toast.LENGTH_SHORT).show();
             }
         });
     }

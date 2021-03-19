@@ -1,8 +1,10 @@
 package com.example.academiadoprogramador2021.Classes;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +13,19 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.academiadoprogramador2021.Activities.EditarEquipamento;
+import com.example.academiadoprogramador2021.Activities.IndexEquipamento;
 import com.example.academiadoprogramador2021.R;
 
 import java.util.ArrayList;
 
 public class ListViewEquipamentoAdapter extends BaseAdapter {
 
-        private final Context context;
-        public ArrayList<Equipamento> listaEquipamentos;
-        private int idEquipamento;
-        private static LayoutInflater inflater=null;
+    private static final int REQUEST_CODE = 2;
+    private final Context context;
+    public ArrayList<Equipamento> listaEquipamentos;
+    private int idEquipamento;
+    private static LayoutInflater inflater=null;
 
         //Atributo para animação no botão
 
@@ -52,7 +57,7 @@ public class ListViewEquipamentoAdapter extends BaseAdapter {
 
         public class Holder{
             TextView tv_nome, tv_numeroSerie, tv_fabricante;
-            Button bt_excluir;
+            Button bt_excluir, bt_editar;
         }
 
         @Override
@@ -67,6 +72,7 @@ public class ListViewEquipamentoAdapter extends BaseAdapter {
             holder.tv_numeroSerie = row.findViewById(R.id.lv_tv_numeroSerieDinamico);
             holder.tv_fabricante = row.findViewById(R.id.lv_tv_FabricanteDinamico);
             holder.bt_excluir = row.findViewById(R.id.lv_bt_excluir);
+            holder.bt_editar = row.findViewById(R.id.lv_bt_editar);
 
             //Cria um objeto para cada item da lista.
             final Equipamento equipamento = (Equipamento) this.getItem(position);
@@ -77,6 +83,19 @@ public class ListViewEquipamentoAdapter extends BaseAdapter {
             holder.tv_fabricante.setText(String.valueOf(equipamento.getFabricante()));
 
             idEquipamento = BancodeDados.equipamentoDao.geteEquipamentoId(equipamento.getNome());
+
+            //Listener do botão "Editar dados"
+            holder.bt_editar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context, EditarEquipamento.class);
+                    i.putExtra("nomeEquipamento", equipamento.getNome());
+                    ((Activity) context).startActivityForResult(i, REQUEST_CODE);
+                }
+            });
+
+
+
 
 
             //Listener do botão "excluir"
@@ -112,5 +131,8 @@ public class ListViewEquipamentoAdapter extends BaseAdapter {
 
             return row;
         }
+
+
+
 
 }

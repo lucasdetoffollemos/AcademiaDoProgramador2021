@@ -7,6 +7,25 @@
     tools:context=".Activities.IndexEquipamento"
     android:padding="10dp">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:layout_gravity="center_vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="voltarMain"
+            android:src="@drawable/ic_voltar"
+            app:tint="@color/black" />
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/tv_bemVindo"
         android:layout_width="wrap_content"
@@ -19,26 +38,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.242" />
+        app:layout_constraintVertical_bias="0.242"
+        />
 
-    <TextView
-        android:id="@+id/tv_zeroEquipamentos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="30sp"
-        android:text="Ainda não há equioamentos."
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.242" />
 
     <ListView
         android:id="@+id/lv_equipamentos"
-        android:layout_width="340dp"
-        android:layout_height="370dp"
+        android:layout_width="339dp"
+        android:layout_height="449dp"
         android:divider="@null"
         android:dividerHeight="10.0dp"
         app:layout_constraintBottom_toBottomOf="@+id/bt_registroEquipamentos"
@@ -46,7 +53,7 @@
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.534" />
 
     <Button
         android:id="@+id/bt_registroEquipamentos"

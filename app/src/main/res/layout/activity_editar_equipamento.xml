@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.RegistroEquipamento"
+    tools:context=".Activities.EditarEquipamento"
     android:padding="10dp">
 
     <LinearLayout
@@ -22,14 +22,13 @@
             android:onClick="voltarIndex"
             android:src="@drawable/ic_voltar"
             app:tint="@color/black" />
-
     </LinearLayout>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Registre seu equipamento aqui!"
+        android:text="Edite seu equipamento"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -126,15 +125,14 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/bt_registrar"
+        android:id="@+id/bt_editar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registrar"
+        android:text="Editar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_fabricanteLayout"
         app:layout_constraintVertical_bias="0.628" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
