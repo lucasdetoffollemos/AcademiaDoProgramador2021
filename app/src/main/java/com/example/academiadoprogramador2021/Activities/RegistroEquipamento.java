@@ -3,6 +3,7 @@ package com.example.academiadoprogramador2021.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,17 +12,22 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.academiadoprogramador2021.Classes.BancodeDados;
+import com.example.academiadoprogramador2021.Classes.Equipamento;
 import com.example.academiadoprogramador2021.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class RegistroEquipamento extends AppCompatActivity {
     private EditText et_nome, et_preco,  et_numeroSerie, et_fabricante;
     private TextView tv_date;
     private String nome, preco, numeroSerie, dataFabricacao, fabricante, dataAtual;
+
 
 
     private Button bt_registrar;
@@ -94,7 +100,6 @@ public class RegistroEquipamento extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
     }
 
     public void registrarDados() {
@@ -114,6 +119,28 @@ public class RegistroEquipamento extends AppCompatActivity {
                 //Toast.makeText(this, "Data de fabricação: " + dataFabricacao, Toast.LENGTH_SHORT).show();
                 //Toast.makeText(this, "Fabricante: " + fabricante, Toast.LENGTH_SHORT).show();
                 //some logic
+
+
+                Equipamento e = new Equipamento(nome, preco, numeroSerie, dataFabricacao, fabricante);
+                BancodeDados.equipamentoDao.inserirEquipamento(e);
+
+                Toast.makeText(this, "Equipamento registrado com sucesso! ", Toast.LENGTH_SHORT).show();
+//                BancodeDados.equipamentoDao.deleteAllEquipamentos();
+//                Toast.makeText(this, "Equipamentos deletado com sucesso! ", Toast.LENGTH_SHORT).show();
+
+                //O código abaixo aguarda 2 seg e redireciona o usuário para o IndexFragment.
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("nome_equipamento", nome);
+                        setResult(RESULT_OK, returnIntent);
+                        finish();
+                    }
+                }, 1000);
+
+
+
             }
             else {
                 Toast.makeText(this, "Data maior que a atual, por favor insira uma data menor.", Toast.LENGTH_SHORT).show();

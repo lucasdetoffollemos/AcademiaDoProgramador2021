@@ -7,16 +7,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.academiadoprogramador2021.Classes.BancodeDados;
 import com.example.academiadoprogramador2021.R;
 
 public class MainActivity extends AppCompatActivity {
     private Button bt_equipamento, bt_manutencao;
+
+    public static BancodeDados bancoDeDados;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        bancoDeDados = new BancodeDados(this);
+        bancoDeDados.abreConexao();
 
         inicializa();
         setListeners();
