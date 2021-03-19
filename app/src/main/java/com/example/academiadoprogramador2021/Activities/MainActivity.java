@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    //Comentário para o commit
 
     private void vaiParaEquipamentos() {
         Intent i = new Intent(MainActivity.this, IndexEquipamento.class);
